@@ -41,8 +41,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="bg-green-50 py-4 overflow-hidden">
-    <div class="container-xl lg:container h-screen m-auto flex flex-col gap-4 overflow-auto">
+  <section class="bg-blue-50 py-4 overflow-hidden">
+    <div class="container-xl lg:container h-full m-auto flex flex-col gap-4 overflow-hidden">
       <JokesHeroSection
         :set-current-joke-type="setCurrentJokeType"
         :current-joke-type="currentJokeType"
