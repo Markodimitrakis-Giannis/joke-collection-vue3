@@ -3,7 +3,7 @@ import type { RouteRecordRaw } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import JokesView from '@/views/JokesView.vue'
 import JokeView from '@/views/SingleJokeView.vue'
-import CollectionView from '@/views/Collection.vue'
+import CollectionViewView from '@/views/CollectionView.vue'
 import { RouteNames, Routes } from '@/types/Routes.ts'
 
 const routes: RouteRecordRaw[] = [
@@ -26,7 +26,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: Routes.COLLECTION,
     name: RouteNames.COLLECTION,
-    component: CollectionView,
+    component: CollectionViewView,
   },
   {
     path: Routes.NOT_FOUND,

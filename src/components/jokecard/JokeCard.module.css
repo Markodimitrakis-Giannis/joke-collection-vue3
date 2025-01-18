@@ -1,0 +1,11 @@
+.punchline-transition {
+    transition: opacity 0.5s ease-in-out;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.text-white {
+    color: white;
+}
