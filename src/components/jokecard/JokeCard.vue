@@ -31,7 +31,7 @@ const updateJokeSavedStatus = () => {
 
 <template>
   <CardContainer
-    class="flex flex-col gap-5 bg-white border-yellow-300 border-2 px-4 py-4 hover:bg-blue-900 hover:cursor-pointer"
+    class="flex flex-col gap-5 bg-white border-yellow-700 border-2 px-4 py-4 hover:bg-yellow-200 hover:cursor-pointer"
   >
     <div class="flex flex-row">
       <CardHeader class="py-1 px-0">
