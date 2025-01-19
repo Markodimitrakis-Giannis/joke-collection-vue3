@@ -18,7 +18,8 @@ import { RouterLink } from 'vue-router'
             <div class="flex space-x-2">
               <RouterLink
                 to="/"
-                activeclass="bg-green-900 text-white"
+                activeClass="border-red-500"
+                exactActiveClass="border-red-700"
                 class="text-gray-100 hover:text-black transition-colors duration-200 rounded-md px-3 py-2 font-semibold"
                 >Home</RouterLink
               >
