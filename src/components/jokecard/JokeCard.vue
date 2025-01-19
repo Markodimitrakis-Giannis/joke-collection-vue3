@@ -22,7 +22,7 @@ const props = defineProps({
     required: true,
   },
   updatePersonalCollection: {
-    type: Function as PropType<() => void>,
+    type: Function as PropType<(updatedJoke: FrontendJokeType) => void>,
     required: false,
   },
 })
@@ -38,7 +38,9 @@ const togglePunchline = () => (showPunchline.value = !showPunchline.value)
 const updateJokeSavedStatus = () => {
   isJokeSaved.value = isJokeSavedInLocalStorage(props.joke.id)
 
-  props.updatePersonalCollection(props.joke)
+  if (props.updatePersonalCollection) {
+    props.updatePersonalCollection({ ...props.joke })
+  }
 }
 
 const fetchExistingRating = () => {

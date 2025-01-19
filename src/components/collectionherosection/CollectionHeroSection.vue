@@ -5,13 +5,13 @@ defineProps({
     required: true,
   },
   averageRating: {
-    type: Number || String,
+    type: [Number, String],
     required: true,
   },
 })
 
 const generateStars = (rating: number): ('full' | 'half' | 'empty')[] => {
-  const stars = []
+  const stars = Array<'full' | 'half' | 'empty'>()
   const fullStars = Math.floor(rating)
   const halfStar = rating % 1 >= 0.5
   const emptyStars = 5 - fullStars - (halfStar ? 1 : 0)
@@ -39,7 +39,7 @@ const generateStars = (rating: number): ('full' | 'half' | 'empty')[] => {
         <div class="font-semibold flex items-center justify-center gap-2">
           <div class="text-[20px] font-semibold">Average Rating:</div>
           <span class="flex gap-1 justify-center items-center pt-1">
-            <template v-for="(state, index) in generateStars(averageRating)" :key="index">
+            <template v-for="(state, index) in generateStars(averageRating as number)" :key="index">
               <span
                 :class="[
                   'flex',
