@@ -24,7 +24,7 @@ const changeJokeType = (type: FrontendJokeTypeEnum) => {
 </script>
 
 <template>
-  <section class="bg-black text-white py-20">
+  <section class="bg-black text-white py-20 rounded">
     <div class="flex flex-col justify-center items-center rounded gap-10">
       <div class="text-3xl font-bold text-gray-200">JOKES TYPE</div>
       <div class="flex justify-center items-center gap-3">

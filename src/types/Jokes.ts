@@ -5,6 +5,7 @@ export interface FrontendJokeType {
   setup: string
   punchline: string
   isFavourite?: boolean
+  rating?: number
 }
 
 export enum FrontendJokeTypeEnum {
@@ -13,6 +14,12 @@ export enum FrontendJokeTypeEnum {
   KNOCK_KNOCK = 'knock-knock',
   DAD = 'dad',
 }
+
+export interface JokeRating {
+  id: number | string
+  rating: number
+}
+
 const frontendJokeTypeToBackendJokeType = new Map<FrontendJokeTypeEnum, BackendJokeTypeEnum>([
   [FrontendJokeTypeEnum.GENERAL, BackendJokeTypeEnum.GENERAL],
   [FrontendJokeTypeEnum.PROGRAMMING, BackendJokeTypeEnum.PROGRAMMING],
