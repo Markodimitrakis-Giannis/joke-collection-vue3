@@ -6,6 +6,7 @@ import { computed, onUnmounted } from 'vue'
 import JokesHeroSection from '@/components/jokesherosection/JokesHeroSection.vue'
 import { FrontendJokeTypeEnum } from '@/types/Jokes.ts'
 import { ref, watch } from 'vue'
+import { QueryNames } from '@/types/Queries.ts'
 
 // Access QueryClient instance
 const queryClient = useQueryClient()
@@ -14,13 +15,12 @@ const { getJokes } = useAppJokesQueries()
 const currentJokeType = ref(FrontendJokeTypeEnum.GENERAL)
 
 const setCurrentJokeType = (type: FrontendJokeTypeEnum) => {
-  console.log('Setting joke type to:', type)
   currentJokeType.value = type
 }
 
 const currentJokeQueryKey = computed(() => [currentJokeType.value])
 const jokesQuery = useQuery({
-  queryKey: ['jokes', currentJokeQueryKey],
+  queryKey: [QueryNames.JOKES, currentJokeQueryKey],
   queryFn: () => getJokes(currentJokeType.value),
   staleTime: 1000 * 60 * 5, // 5 minutes
 })
@@ -33,9 +33,12 @@ watch(currentJokeType, () => {
   queryClient.invalidateQueries({ queryKey: ['jokes', currentJokeQueryKey] }) // Only reason i have this is because the API fetched different jokes each time for the same type. In a normal case,
   // one wouldn't need this as the query caching for the same keys is beneficial ( for non crucial data)
 })
+
 onUnmounted(() => {
   return () => {
-    queryClient.cancelQueries({ queryKey: ['jokes', currentJokeQueryKey] })
+    queryClient.cancelQueries({ queryKey: [QueryNames.JOKES, currentJokeQueryKey] }).then(() => {
+      console.log(`Cancelled ${QueryNames.JOKES} query`)
+    })
   }
 })
 </script>
