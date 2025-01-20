@@ -18,6 +18,8 @@ export default [
     name: 'global-config',
     rules: {
       '@typescript-eslint/no-unused-expressions': 'off',
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'off',
       '@typescript-eslint/no-unnecessary-type-assertion': 'off',
       '@typescript-eslint/prefer-optional-chain': 'off',
       '@typescript-eslint/no-require-imports': 'off',
