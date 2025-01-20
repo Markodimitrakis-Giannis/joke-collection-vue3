@@ -8,9 +8,10 @@ import CollectionHeroSection from '@/components/collectionherosection/Collection
 import type { FrontendJokeType } from '@/types/Jokes.ts'
 import SearchBar from '@/components/searchbar/SearchBar.vue'
 
-const jokes = ref(getJokesFromLocalStorage())
-const searchWord = ref('')
-const activeFilter = ref<CollectionFiltersEnum | null>(null)
+const jokes = ref<FrontendJokeType[]>(getJokesFromLocalStorage())
+const searchWord = ref<string>('')
+const activeSortingFilter = ref<CollectionFiltersEnum | null>(null)
+const filteredRating = ref<number | null>(null)
 
 const avgRating = computed(() => {
   const ratedJokes = jokes.value.filter((joke) => joke.rating !== 0 && joke.rating !== undefined)
@@ -21,7 +22,7 @@ const avgRating = computed(() => {
 const updateJokeRating = (updatedJoke: FrontendJokeType) => {
   const existingIndex = jokes.value.findIndex((joke) => joke.id === updatedJoke.id)
   if (existingIndex !== -1) {
-    jokes.value.splice(existingIndex, 1, updatedJoke) // Update joke
+    jokes.value.splice(existingIndex, 1, updatedJoke)
   } else {
     jokes.value.push(updatedJoke)
   }
@@ -30,7 +31,7 @@ const updateJokeRating = (updatedJoke: FrontendJokeType) => {
 const updatePersonalCollection = (updatedJoke: FrontendJokeType) => {
   const existingIndex = jokes.value.findIndex((joke) => joke.id === updatedJoke.id)
   if (existingIndex >= 0) {
-    jokes.value.splice(existingIndex, 1, updatedJoke) // Update joke
+    jokes.value.splice(existingIndex, 1, updatedJoke)
   } else {
     jokes.value.push(updatedJoke)
   }
@@ -43,27 +44,39 @@ const removeJokeFromCollection = (jokeId: number) => {
   jokes.value = jokes.value.filter((joke) => joke.id !== jokeId)
 }
 const filteredJokes = computed(() => {
-  const searchTerm = searchWord.value.toLowerCase()
+  const searchTerm = searchWord.value.toLowerCase().trim() // Filtering should always be in backend but for the purpose of this project, I am doing it in frontend
   const filtered = jokes.value.filter((joke) => joke.setup.toLowerCase().includes(searchTerm))
 
-  // Apply active filter (e.g., sort by rating)
-  if (activeFilter.value === CollectionFiltersEnum.Rating) {
-    return [...filtered].sort((a, b) => {
+  const filteredByRating = filteredRating.value
+    ? filtered.filter((joke) => joke.rating === filteredRating.value)
+    : filtered
+
+  if (activeSortingFilter.value === CollectionFiltersEnum.Rating) {
+    return [...filteredByRating].sort((a, b) => {
       const aRating = a.rating ?? 0
       const bRating = b.rating ?? 0
       return bRating - aRating
     })
   }
+  if (activeSortingFilter.value === CollectionFiltersEnum.Alphabetical) {
+    return [...filteredByRating].sort((a, b) =>
+      a.punchline.charAt(0).localeCompare(b.punchline.charAt(0)),
+    ) // Sort by first letter of punchline as there is no title of the joke to sort alphabetically or any similar field
+  }
 
-  return filtered
+  return filteredByRating
 })
 
-const toggleIsShowingSortedByRating = (type: CollectionFiltersEnum | null) => {
-  if (activeFilter.value === type) {
-    activeFilter.value = null
+const toggleActiveSortingFilter = (type: CollectionFiltersEnum | null) => {
+  if (activeSortingFilter.value === type) {
+    activeSortingFilter.value = null
   } else {
-    activeFilter.value = type
+    activeSortingFilter.value = type
   }
+}
+
+const changeFilteredRating = (newRating: number | null) => {
+  filteredRating.value = newRating
 }
 
 const handleSeachTermChange = (e: Event) => {
@@ -71,7 +84,7 @@ const handleSeachTermChange = (e: Event) => {
     if (e.target) {
       searchWord.value = (e.target as HTMLInputElement).value
     }
-  }, 1000)
+  }, 1000) // Debounce the input (in case we had api calls in real projects)
 }
 </script>
 
@@ -83,7 +96,10 @@ const handleSeachTermChange = (e: Event) => {
       <div class="flex flex-col flex-1 gap 4">
         <div class="flex flex-row py-4 flex-1 gap-4">
           <div class="flex-auto">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-auto pr-6">
+            <div
+              v-if="filteredJokes.length > 0"
+              class="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-auto pr-6"
+            >
               <JokeCard
                 v-for="joke in filteredJokes"
                 :key="joke.id"
@@ -93,12 +109,20 @@ const handleSeachTermChange = (e: Event) => {
                 @rating-updated="updateJokeRating"
               />
             </div>
+            <div
+              v-else
+              class="flex justify-center items-center h-[20px] text-xl text-orange-500 font-bold font-italic"
+            >
+              No Jokes Found
+            </div>
           </div>
 
           <div class="flex w-64 flex-col gap-4">
             <CollectionFilters
-              :active-filter="activeFilter"
-              :set-active-filter="toggleIsShowingSortedByRating"
+              :active-sorting-filter="activeSortingFilter"
+              :set-active-sorting-filter="toggleActiveSortingFilter"
+              :filtered-rating="filteredRating"
+              :set-filtered-rating="changeFilteredRating"
             />
             <SearchBar :handle-search="handleSeachTermChange" :search-term="searchWord" />
           </div>

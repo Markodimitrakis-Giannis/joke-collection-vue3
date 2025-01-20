@@ -80,7 +80,7 @@ onMounted(() => fetchExistingRating())
 
 <template>
   <CardContainer
-    class="flex flex-col gap-5 bg-white border-yellow-700 border-2 px-4 py-4 hover:bg-yellow-200 hover:cursor-pointer"
+    class="flex flex-col gap-6 bg-orange-100 border-yellow-700 border-2 px-4 py-4 hover:bg-yellow-200 hover:cursor-pointer"
   >
     <!-- Header -->
     <div class="flex flex-row">
@@ -98,7 +98,7 @@ onMounted(() => fetchExistingRating())
       </JokeCardTooltip>
     </div>
 
-    <CardDescription class="h-[40px]">
+    <CardDescription class="h-[40px] overflow-y-auto">
       {{ joke.setup }}
     </CardDescription>
 
@@ -106,7 +106,7 @@ onMounted(() => fetchExistingRating())
       <button
         @click="togglePunchline"
         :class="showPunchline ? 'bg-gray-400' : 'bg-purple-300'"
-        class="text-black py-2 px-4 rounded block"
+        class="text-black py-2 px-4 rounded block font-semibold w-[150px] text-nowrap"
       >
         {{ showPunchline ? 'Hide' : 'Show' }} Punchline
       </button>
