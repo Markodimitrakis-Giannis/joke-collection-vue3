@@ -25,6 +25,11 @@ const props = defineProps({
     type: Function as PropType<(updatedJoke: FrontendJokeType) => void>,
     required: false,
   },
+  isInHomePage: {
+    type: Boolean as PropType<boolean>,
+    required: false,
+    default: false,
+  },
 })
 
 const rating = ref<number>(0)
@@ -80,15 +85,16 @@ onMounted(() => fetchExistingRating())
 
 <template>
   <CardContainer
+    :class="[isInHomePage ? 'w-[300px]' : '']"
     class="flex flex-col gap-6 bg-orange-100 border-yellow-700 border-2 px-4 py-4 hover:bg-yellow-200 hover:cursor-pointer"
   >
-    <!-- Header -->
     <div class="flex flex-row">
       <CardHeader class="py-1 px-0">
         <CardTitle class="text-black">{{ joke.type.toUpperCase() }}</CardTitle>
       </CardHeader>
       <div class="flex flex-1"></div>
       <JokeCardTooltip
+        v-if="!isInHomePage"
         :is-item-in-library="isJokeSaved"
         :joke="joke"
         @added="updateJokeSavedStatus"
@@ -128,7 +134,7 @@ onMounted(() => fetchExistingRating())
       </p>
     </CardContent>
 
-    <div class="flex items-center justify-center gap-2">
+    <div v-if="!isInHomePage" class="flex items-center justify-center gap-2">
       <span
         v-for="(className, index) in starClasses"
         :key="index"
