@@ -59,13 +59,12 @@ const prev = () => {
         class="flex flex-col md:flex-row gap-4 transition-transform duration-300"
         :style="{ transform: `translateX(0%)` }"
       >
-        <div
-          v-if="isLoading"
-          v-for="item in 3"
-          :key="'skeleton-' + item"
-          class="flex justify-center items-center px-4"
-        >
-          <CardSkeleton class="bg-gray-600 w-[240px] h-[240px]" />
+        <div v-if="isLoading" class="flex justify-center items-center px-4 gap-4">
+          <CardSkeleton
+            v-for="item in 3"
+            :key="'skeleton-' + item"
+            class="bg-gray-600 w-[240px] h-[240px]"
+          />
         </div>
 
         <div

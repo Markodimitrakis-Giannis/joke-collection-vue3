@@ -4,6 +4,7 @@ import { AnFilledDelete } from '@kalimahapps/vue-icons'
 import { addJokeToLocalStorage, removeJokeFromLocalStorage } from '@/lib/utils.ts'
 import type { FrontendJokeType } from '@/types/Jokes.ts'
 import type { PropType } from 'vue'
+import { useToast } from '@/components/ui/toast/use-toast'
 
 const props = defineProps({
   isItemInLibrary: {
@@ -16,14 +17,26 @@ const props = defineProps({
   },
 })
 
+const { toast } = useToast()
 const emit = defineEmits(['added', 'deleted'])
 
 const handleAddJoke = () => {
+  toast({
+    title: `Joke with id ${props.joke?.id} added`,
+    description: new Date().toLocaleTimeString(),
+    duration: 5000,
+  })
   addJokeToLocalStorage(props.joke)
   emit('added')
 }
 
 const handleRemoveJoke = () => {
+  toast({
+    title: `Joke with id ${props.joke?.id} removed`,
+    description: new Date().toLocaleTimeString(),
+    variant: 'destructive',
+    duration: 5000,
+  })
   removeJokeFromLocalStorage(props.joke.id)
   emit('deleted')
 }
