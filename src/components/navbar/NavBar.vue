@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useLink } from 'vue-router'
+import { RouteNames } from '@/types/Routes.ts'
+
+const isActiveLink = (to: string): boolean => {
+  const { isExactActive } = useLink({ to })
+  return isExactActive.value
+}
 </script>
 
 <template>
@@ -16,19 +23,26 @@ import { RouterLink } from 'vue-router'
             <div class="flex space-x-2">
               <RouterLink
                 to="/"
-                activeClass="border-red-500"
-                exactActiveClass="border-red-700"
-                class="text-gray-100 hover:text-black transition-colors duration-200 rounded-md px-3 py-2 font-semibold"
+                :class="{
+                  ['border-b-2 border-black text-black']: isActiveLink(`/${RouteNames.HOME}`),
+                }"
+                class="text-gray-100 hover:text-yellow-300 transition-colors duration-200 px-3 py-2 font-semibold"
                 >Home</RouterLink
               >
               <RouterLink
                 to="/jokes"
-                class="text-gray-100 hover:text-black transition-colors duration-200 rounded-md px-3 py-2 font-semibold"
+                :class="{
+                  ['border-b-2 border-black text-black']: isActiveLink(`/${RouteNames.JOKES}`),
+                }"
+                class="text-gray-100 hover:text-yellow-300 transition-colors duration-200 px-3 py-2 font-semibold"
                 >Jokes</RouterLink
               >
               <RouterLink
                 to="/collection"
-                class="text-gray-100 hover:text-black transition-colors duration-200 rounded-md px-3 py-2 font-semibold"
+                :class="{
+                  ['border-b-2 border-black text-black']: isActiveLink(`/${RouteNames.COLLECTION}`),
+                }"
+                class="text-gray-100 hover:text-yellow-300 transition-colors duration-200 px-3 py-2 font-semibold"
                 >My Collection</RouterLink
               >
             </div>

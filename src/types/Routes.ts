@@ -6,7 +6,7 @@ export enum Routes {
   NOT_FOUND = '/:pathMatch(.*)*',
 }
 export enum RouteNames {
-  HOME = 'home',
+  HOME = '/',
   JOKES = 'jokes',
   JOKE = 'joke',
   COLLECTION = 'collection',

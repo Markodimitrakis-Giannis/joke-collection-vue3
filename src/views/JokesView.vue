@@ -3,7 +3,7 @@ import JokeCard from '@/components/jokecard/JokeCard.vue'
 import { useQueryClient, useQuery } from '@tanstack/vue-query'
 import { useAppJokesQueries } from '@/apicalls/useAppJokesQueries.ts'
 import { computed, onUnmounted } from 'vue'
-import JokesHeroSection from '@/components/jokesherosection/JokesHeroSection.vue'
+import JokesHeroSection from '@/components/jokeviewcomponents/jokesherosection/JokesHeroSection.vue'
 import { FrontendJokeTypeEnum } from '@/types/Jokes.ts'
 import { ref, watch } from 'vue'
 import { QueryNames } from '@/types/Queries.ts'
@@ -43,7 +43,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <section class="bg-blue-50 py-4 h-full flex flex-1 flex-col min-h-screen">
+  <section class="bg-blue-50 py-4 flex flex-1 flex-col min-h-screen">
     <div class="container-xl lg:container m-auto flex flex-col flex-1 gap-4 h-full">
       <JokesHeroSection
         :set-current-joke-type="setCurrentJokeType"
@@ -52,7 +52,7 @@ onUnmounted(() => {
       <div v-if="isLoading" class="text-center text-2xl font-bold">Loading...</div>
       <div v-else-if="hasFailed" class="text-center text-2xl font-bold">Error fetching jokes</div>
 
-      <div v-else-if="jokesData" class="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-auto pr-6">
+      <div v-else-if="jokesData" class="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-auto">
         <JokeCard v-for="joke in jokesData.value" :key="joke.id" :joke="joke" />
       </div>
     </div>

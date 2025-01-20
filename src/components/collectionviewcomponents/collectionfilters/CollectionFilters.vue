@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { CollectionFiltersEnum } from '@/types/CollectionFilters.ts'
-import StarFilterDropdown from '@/components/starfilterdropdown/StarFilterDropdown.vue'
+import StarFilterDropdown from '@/components/collectionviewcomponents/starfilterdropdown/StarFilterDropdown.vue'
 
 const props = defineProps({
   activeSortingFilter: {

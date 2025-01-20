@@ -2,11 +2,11 @@
 import JokeCard from '@/components/jokecard/JokeCard.vue'
 import { getJokesFromLocalStorage, setRatingsToLocalStorage } from '@/lib/utils.ts'
 import { ref, computed } from 'vue'
-import CollectionFilters from '@/components/collectionfilters/CollectionFilters.vue'
+import CollectionFilters from '@/components/collectionviewcomponents/collectionfilters/CollectionFilters.vue'
 import { CollectionFiltersEnum } from '@/types/CollectionFilters.ts'
-import CollectionHeroSection from '@/components/collectionherosection/CollectionHeroSection.vue'
+import CollectionHeroSection from '@/components/collectionviewcomponents/collectionherosection/CollectionHeroSection.vue'
 import type { FrontendJokeType } from '@/types/Jokes.ts'
-import SearchBar from '@/components/searchbar/SearchBar.vue'
+import SearchBar from '@/components/ui/searchbar/SearchBar.vue'
 
 const jokes = ref<FrontendJokeType[]>(getJokesFromLocalStorage())
 const searchWord = ref<string>('')
