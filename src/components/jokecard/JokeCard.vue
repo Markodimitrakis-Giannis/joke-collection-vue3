@@ -79,6 +79,7 @@ const starClasses = computed(() =>
 
 const removeJoke = () => {
   emits('remove', props.joke.id)
+  isJokeSaved.value = false
 }
 onMounted(() => fetchExistingRating())
 </script>

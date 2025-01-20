@@ -33,11 +33,11 @@ defineProps({
 
       <div class="md:w-1/2 text-center md:text-left flex flex-col gap-4">
         <h1 class="text-3xl lg:text-4xl font-bold text-gray-800 mb-4">{{ title }}</h1>
-        <p class="text-gray-600 text-lg leading-relaxed">{{ description }}</p>
+        <p class="text-gray-800 text-lg leading-relaxed">{{ description }}</p>
         <div class="flex justify-center md:justify-start py-6">
           <RouterLink
             :to="RouteNames.JOKES"
-            class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md inline-block w-auto"
+            class="bg-blue-500 text-white px-6 py-4 rounded-lg shadow-md inline-block w-auto font-semibold"
           >
             Explore More
           </RouterLink>

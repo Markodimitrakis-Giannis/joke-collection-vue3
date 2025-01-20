@@ -111,7 +111,7 @@ const handleSeachTermChange = (e: Event) => {
             </div>
             <div
               v-else
-              class="flex justify-center items-center h-[20px] text-xl text-orange-500 font-bold font-italic"
+              class="flex flex-1 h-full justify-center items-center h-[20px] text-xl text-orange-500 font-bold font-italic"
             >
               No Jokes Found
             </div>

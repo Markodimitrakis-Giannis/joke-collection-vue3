@@ -32,17 +32,23 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <main class="bg-blue-50 py-4 flex flex-1 flex-col min-h-screen flex-col gap-4">
+  <main class="bg-blue-50 py-4 flex flex-1 flex-col min-h-screen gap-4">
     <HomeHeroSection
       title="Welcome to the Jokes App!"
       description="
 Enjoy the best jokes from the internet. We have jokes for everyone, from general jokes to programming jokes. You can also save your favourite jokes as well as rate them. Have fun!"
       :img-src="heroJokerImg"
     />
-    <div v-if="isLoading" class="text-center text-2xl font-bold text-white">Loading...</div>
-    <div v-else-if="hasFailed" class="text-center text-2xl font-bold text-white">
-      Error fetching jokes
+    <div
+      v-if="hasFailed"
+      class="text-center text-2xl font-bold text-red-600 h-full flex flex-1 justify-center items-center"
+    >
+      {{ jokesQuery.error?.value ?? 'Error fetching jokes' }}
     </div>
-    <HomePageCarousel :v-else-if="jokesData !== undefined" :items="jokesData.value!" />
+    <HomePageCarousel
+      v-else-if="jokesData !== undefined"
+      :items="jokesData.value!"
+      :isLoading="isLoading"
+    />
   </main>
 </template>
