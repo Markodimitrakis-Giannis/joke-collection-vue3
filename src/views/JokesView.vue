@@ -7,6 +7,7 @@ import JokesHeroSection from '@/components/jokeviewcomponents/jokesherosection/J
 import { FrontendJokeTypeEnum } from '@/types/Jokes.ts'
 import { ref, watch } from 'vue'
 import { QueryNames } from '@/types/Queries.ts'
+import CardSkeleton from '@/components/cardskeleton/CardSkeleton.vue'
 
 const queryClient = useQueryClient()
 const { getJokes } = useAppJokesQueries()
@@ -49,8 +50,15 @@ onUnmounted(() => {
         :set-current-joke-type="setCurrentJokeType"
         :current-joke-type="currentJokeType"
       />
-      <div v-if="isLoading" class="text-center text-2xl font-bold">Loading...</div>
-      <div v-else-if="hasFailed" class="text-center text-2xl font-bold">Error fetching jokes</div>
+      <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-auto">
+        <CardSkeleton v-for="i in 10" :key="i" />
+      </div>
+      <div
+        v-else-if="hasFailed"
+        class="text-center text-2xl font-bold text-red-600 h-full flex flex-1 justify-center items-center"
+      >
+        {{ jokesQuery.error?.value ?? 'Error fetching jokes' }}
+      </div>
 
       <div v-else-if="jokesData" class="grid grid-cols-1 md:grid-cols-3 gap-6 overflow-auto">
         <JokeCard v-for="joke in jokesData.value" :key="joke.id" :joke="joke" />
