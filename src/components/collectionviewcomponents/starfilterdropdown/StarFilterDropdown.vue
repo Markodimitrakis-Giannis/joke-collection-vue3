@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
+import { ref } from 'vue'
 import { CaChevronDown } from '@kalimahapps/vue-icons'
 import {
   DropdownMenu,
@@ -19,12 +20,15 @@ const props = defineProps({
   },
 })
 
+const dropdownOpen = ref(false)
+
 const handleSelect = (rating: number | null) => {
   if (rating === null) {
     props.setFilteredRating(null)
-    return
+  } else {
+    props.setFilteredRating(rating)
   }
-  props.setFilteredRating(rating)
+  dropdownOpen.value = false
 }
 
 const generateStars = (rating: number): string[] => {
@@ -33,7 +37,7 @@ const generateStars = (rating: number): string[] => {
 </script>
 
 <template>
-  <DropdownMenu>
+  <DropdownMenu v-model:open="dropdownOpen">
     <DropdownMenuTrigger
       as="button"
       :class="[props.filteredRating ? 'border-yellow-400 border-2' : 'border-transparent border-2']"
