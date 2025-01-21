@@ -37,7 +37,7 @@ defineProps({
         <div class="flex justify-center md:justify-start py-6">
           <RouterLink
             :to="RouteNames.JOKES"
-            class="bg-blue-500 text-white px-6 py-4 rounded-lg shadow-md inline-block w-auto font-semibold"
+            class="bg-blue-500 hover:bg-blue-900 text-white px-6 py-4 rounded-lg shadow-md inline-block w-auto font-semibold"
           >
             Explore More
           </RouterLink>

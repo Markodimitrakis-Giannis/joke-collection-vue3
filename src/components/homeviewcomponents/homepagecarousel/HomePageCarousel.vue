@@ -42,7 +42,7 @@ const prev = () => {
   <div class="container bg-black rounded mx-auto flex flex-col items-center gap-8 py-8">
     <div class="text-white font-bold text-lg">Random Jokes from the API</div>
     <div
-      class="relative w-full overflow-hidden flex flex-col md:flex-row gap-4 justify-center items-center"
+      class="relative w-full overflow-hidden flex flex-col sm:flex-row gap-4 justify-center items-center"
     >
       <div class="flex flex-col justify-center items-center md:justify-start">
         <button

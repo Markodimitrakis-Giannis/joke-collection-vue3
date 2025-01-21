@@ -22,7 +22,7 @@ const emit = defineEmits(['added', 'deleted'])
 
 const handleAddJoke = () => {
   toast({
-    title: `Joke with id ${props.joke?.id} added`,
+    title: `Joke with id ${props.joke?.id} saved`,
     description: new Date().toLocaleTimeString(),
     duration: 5000,
   })
