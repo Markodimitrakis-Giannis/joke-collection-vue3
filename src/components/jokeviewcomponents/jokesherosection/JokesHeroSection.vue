@@ -30,13 +30,13 @@ const changeJokeType = (type: FrontendJokeTypeEnum) => {
       <div class="flex justify-center items-center gap-3">
         <button
           :class="`${
-            props.currentJokeType === FrontendJokeTypeEnum.GENERAL
+            props.currentJokeType === FrontendJokeTypeEnum.Random
               ? 'border-yellow-300 border-2 text-yellow-300'
               : ''
           } text-white py-2 px-4 rounded block`"
-          @click="changeJokeType(FrontendJokeTypeEnum.GENERAL)"
+          @click="changeJokeType(FrontendJokeTypeEnum.Random)"
         >
-          General Jokes
+          Random Jokes
         </button>
         <button
           :class="`${

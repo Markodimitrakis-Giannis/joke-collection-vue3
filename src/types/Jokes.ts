@@ -13,6 +13,7 @@ export enum FrontendJokeTypeEnum {
   PROGRAMMING = 'programming',
   KNOCK_KNOCK = 'knock-knock',
   DAD = 'dad',
+  Random = 'random',
 }
 
 export interface JokeRating {
