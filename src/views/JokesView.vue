@@ -10,19 +10,23 @@ import { QueryNames } from '@/types/Queries.ts'
 import CardSkeleton from '@/components/cardskeleton/CardSkeleton.vue'
 
 const queryClient = useQueryClient()
-const { getJokes } = useAppJokesQueries()
+const { getJokes, getRandomJokes } = useAppJokesQueries()
 
-const currentJokeType = ref(FrontendJokeTypeEnum.GENERAL)
+const currentJokeType = ref(FrontendJokeTypeEnum.Random)
 
 const setCurrentJokeType = (type: FrontendJokeTypeEnum) => {
   currentJokeType.value = type
 }
 
-const currentJokeQueryKey = computed(() => [currentJokeType.value])
+const currentJokeQueryKey = computed(() => currentJokeType.value)
 const jokesQuery = useQuery({
   queryKey: [QueryNames.JOKES, currentJokeQueryKey],
-  queryFn: () => getJokes(currentJokeType.value),
+  queryFn: () =>
+    currentJokeQueryKey.value === FrontendJokeTypeEnum.Random
+      ? getRandomJokes(10)
+      : getJokes(currentJokeType.value),
   staleTime: 1000 * 60 * 5, // 5 minutes
+  enabled: !!currentJokeQueryKey.value,
 })
 
 const jokesData = computed(() => jokesQuery.data)
@@ -30,7 +34,7 @@ const isLoading = computed(() => jokesQuery.isLoading.value)
 const hasFailed = computed(() => jokesQuery.isError.value)
 
 watch(currentJokeType, () => {
-  queryClient.invalidateQueries({ queryKey: ['jokes', currentJokeQueryKey] }) // Only reason i have this is because the API fetched different jokes each time for the same type. In a normal case,
+  queryClient.resetQueries({ queryKey: [QueryNames.JOKES, currentJokeQueryKey] }) // Only reason i have this is because the API fetched different jokes each time for the same type. In a normal case,
   // one wouldn't need this as the query caching for the same keys is beneficial ( for non crucial data)
 })
 
