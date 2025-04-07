@@ -1,11 +1,13 @@
 <script setup lang="ts">
+import type  { PropType } from 'vue';
+
 defineProps({
   searchTerm: {
     type: String,
     required: true,
   },
   handleSearch: {
-    type: Function,
+    type: Function as PropType<(e: Event) => void>,
     required: true,
   },
 })

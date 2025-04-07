@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+// import HomeView from '../views/HomeView.vue'
+import HomeViewSimple from '@/views/HomeViewSimple.vue'
 import JokesView from '@/views/JokesView.vue'
 import JokeView from '@/views/SingleJokeView.vue'
 import CollectionViewView from '@/views/CollectionView.vue'
@@ -10,7 +11,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: Routes.HOME,
     name: RouteNames.HOME,
-    component: HomeView,
+    component: HomeViewSimple,
   },
   {
     path: Routes.JOKES,
